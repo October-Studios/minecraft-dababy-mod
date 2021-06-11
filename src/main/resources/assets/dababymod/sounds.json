@@ -1,0 +1,12 @@
+{
+  "item.dababy_sound": {
+    "category": "mob",
+    "subtitle": "mob.letsgo.sub",
+    "sounds": [
+      {
+        "name": "dababymod:mob/letsgo",
+        "stream": true
+      }
+    ]
+  }
+}

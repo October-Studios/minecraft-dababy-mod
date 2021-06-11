@@ -1,0 +1,11 @@
+{
+  "parent": "block/cube",
+  "textures": {
+    "down": "dababymod:block/firstblock",
+    "up": "dababymod:block/firstblock",
+    "north": "dababymod:block/firstblock",
+    "south": "dababymod:block/firstblock",
+    "east": "dababymod:block/firstblock",
+    "west": "dababymod:block/firstblock"
+  }
+}

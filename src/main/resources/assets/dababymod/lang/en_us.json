@@ -1,3 +1,9 @@
 {
-  "entity.dababy.dababy": "DaBaby"
+  "item.dababymod.dababymob_egg": "DaBaby Spawn Egg",
+  "block.dababymod.firstblock": "First Block",
+
+  "itemGroup.dababymod": "DaBaby",
+
+  "message.firstblock": "This is the first block of this mod!",
+  "message.fancyblock": "Fancy!"
 }
