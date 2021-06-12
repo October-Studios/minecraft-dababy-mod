@@ -9,6 +9,7 @@ import net.minecraft.entity.passive.AnimalEntity;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 public class DaBabyEntity extends AnimalEntity {
@@ -19,7 +20,8 @@ public class DaBabyEntity extends AnimalEntity {
 
   @Nullable
   @Override
-  public AgeableEntity getBreedOffspring(ServerWorld world, AgeableEntity entity) {
+  public AgeableEntity getBreedOffspring(
+      @Nonnull ServerWorld world, @Nonnull AgeableEntity entity) {
     return null;
   }
 
