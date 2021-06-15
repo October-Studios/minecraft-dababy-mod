@@ -13,7 +13,7 @@ apply plugin: 'eclipse'
 apply plugin: 'maven-publish'
 
 version = '0.1.0'
-group = 'com.djarin_development.dababymod' // http://maven.apache.org/guides/mini/guide-naming-conventions.html
+group = 'com.october_studios.dababymod' // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = 'dababymod'
 
 java.toolchain.languageVersion = JavaLanguageVersion.of(8) // Mojang ships Java 8 to end users, so your mod should target Java 8.
