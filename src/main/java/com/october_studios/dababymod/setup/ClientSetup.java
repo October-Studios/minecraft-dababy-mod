@@ -1,22 +1,16 @@
 package com.october_studios.dababymod.setup;
 
 import com.october_studios.dababymod.DababyMod;
-import com.october_studios.dababymod.blocks.FancyBlockColor;
-import com.october_studios.dababymod.blocks.FancyModelLoader;
 import com.october_studios.dababymod.client.AfterLivingRenderer;
 import com.october_studios.dababymod.client.InWorldRenderer;
 import com.october_studios.dababymod.entities.DaBabyRenderer;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.RenderTypeLookup;
 import net.minecraft.client.renderer.texture.AtlasTexture;
 import net.minecraft.item.Item;
-import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.ColorHandlerEvent;
 import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.client.event.RenderTooltipEvent;
 import net.minecraftforge.client.event.TextureStitchEvent;
-import net.minecraftforge.client.model.ModelLoaderRegistry;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
@@ -33,11 +27,6 @@ public class ClientSetup {
         Registration.DABABY.get(), DaBabyRenderer::new);
     MinecraftForge.EVENT_BUS.addListener(InWorldRenderer::render);
     MinecraftForge.EVENT_BUS.addListener(AfterLivingRenderer::render);
-
-    event.enqueueWork(() -> {
-      RenderTypeLookup.setRenderLayer(Registration.FANCYBLOCK.get(), (RenderType) -> true);
-      Minecraft.getInstance().getBlockColors().register(new FancyBlockColor(),Registration.FANCYBLOCK.get());
-    });
   }
 
   @SubscribeEvent
@@ -46,10 +35,7 @@ public class ClientSetup {
   }
 
   @SubscribeEvent
-  public static void onModelRegistryEvent(ModelRegistryEvent event) {
-    ModelLoaderRegistry.registerLoader(
-        new ResourceLocation(DababyMod.MODID, "fancyloader"), new FancyModelLoader());
-  }
+  public static void onModelRegistryEvent(ModelRegistryEvent event) {}
 
   @SubscribeEvent
   public static void onTextureStitch(TextureStitchEvent.Pre event) {

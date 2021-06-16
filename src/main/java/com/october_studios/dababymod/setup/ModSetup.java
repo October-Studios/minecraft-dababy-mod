@@ -23,7 +23,7 @@ public class ModSetup {
   public static final ItemGroup ITEM_GROUP = new ItemGroup("dababy") {
     @Override
     public ItemStack makeIcon() {
-      return new ItemStack(Registration.FIRSTBLOCK.get());
+      return new ItemStack(Registration.DABABYMOB_EGG.get());
     }
   };
 

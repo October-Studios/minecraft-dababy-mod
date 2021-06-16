@@ -1,15 +1,10 @@
 package com.october_studios.dababymod.setup;
 
-import com.djarin_development.dababymod.blocks.*;
-import com.october_studios.dababymod.blocks.FancyBlock;
-import com.october_studios.dababymod.blocks.FancyBlockTile;
-import com.october_studios.dababymod.blocks.FirstBlock;
 import com.october_studios.dababymod.entities.DaBabyEntity;
 import com.october_studios.dababymod.items.DaBabyMobEggItem;
 import net.minecraft.block.Block;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
-import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.ResourceLocation;
@@ -45,24 +40,6 @@ public class Registration {
       SOUNDS.register(
           "mob.letsgo",
           () -> new SoundEvent((new ResourceLocation(MODID, "mob.letsgo"))));
-
-  public static final RegistryObject<FirstBlock> FIRSTBLOCK =
-      BLOCKS.register("firstblock", FirstBlock::new);
-  public static final RegistryObject<Item> FIRSTBLOCK_ITEM =
-      ITEMS.register(
-          "firstblock",
-          () -> new BlockItem(FIRSTBLOCK.get(), new Item.Properties().tab(ModSetup.ITEM_GROUP)));
-
-  public static final RegistryObject<FancyBlock> FANCYBLOCK =
-      BLOCKS.register("fancyblock", FancyBlock::new);
-  public static final RegistryObject<Item> FANCYBLOCK_ITEM =
-      ITEMS.register(
-          "fancyblock",
-          () -> new BlockItem(FANCYBLOCK.get(), new Item.Properties().tab(ModSetup.ITEM_GROUP)));
-  public static final RegistryObject<TileEntityType<FancyBlockTile>> FANCYBLOCK_TILE =
-      TILES.register(
-          "fancyblock",
-          () -> TileEntityType.Builder.of(FancyBlockTile::new, FANCYBLOCK.get()).build(null));
 
   public static final RegistryObject<DaBabyMobEggItem> DABABYMOB_EGG =
       ITEMS.register("dababymob_egg", DaBabyMobEggItem::new);
