@@ -3,22 +3,22 @@ package com.october_studios.dababymod.dimension;
 import com.october_studios.dababymod.DababyMod;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.ChunkPos;
-import net.minecraft.util.registry.Registry;
-import net.minecraft.util.registry.RegistryLookupCodec;
-import net.minecraft.world.Blockreader;
-import net.minecraft.world.IBlockReader;
-import net.minecraft.world.IWorld;
-import net.minecraft.world.biome.Biome;
-import net.minecraft.world.chunk.IChunk;
-import net.minecraft.world.gen.ChunkGenerator;
-import net.minecraft.world.gen.Heightmap;
-import net.minecraft.world.gen.WorldGenRegion;
-import net.minecraft.world.gen.feature.structure.StructureManager;
-import net.minecraft.world.gen.settings.DimensionStructuresSettings;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.ChunkPos;
+import net.minecraft.core.Registry;
+import net.minecraft.resources.RegistryLookupCodec;
+import net.minecraft.world.level.NoiseColumn;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.biome.Biome;
+import net.minecraft.world.level.chunk.ChunkAccess;
+import net.minecraft.world.level.chunk.ChunkGenerator;
+import net.minecraft.world.level.levelgen.Heightmap;
+import net.minecraft.server.level.WorldGenRegion;
+import net.minecraft.world.level.StructureFeatureManager;
+import net.minecraft.world.level.levelgen.StructureSettings;
 
 public class ModChunkGenerator extends ChunkGenerator {
   private static final Codec<Settings> SETTINGS_CODEC = RecordCodecBuilder.create(instance ->
@@ -37,7 +37,7 @@ public class ModChunkGenerator extends ChunkGenerator {
   private final Settings settings;
 
   public ModChunkGenerator(Registry<Biome> registry, Settings settings) {
-    super(new ModBiomeProvider(registry), new DimensionStructuresSettings(false));
+    super(new ModBiomeProvider(registry), new StructureSettings(false));
     this.settings = settings;
     DababyMod.LOGGER.info("Chunk generator settings: " + settings.getBaseHeight() + ", " + settings.getHorizontalVariance() + ", " + settings.getVerticalVariance());
   }
@@ -51,12 +51,12 @@ public class ModChunkGenerator extends ChunkGenerator {
   }
 
   @Override
-  public void buildSurfaceAndBedrock(WorldGenRegion region, IChunk chunk) {
+  public void buildSurfaceAndBedrock(WorldGenRegion region, ChunkAccess chunk) {
     BlockState bedrock = Blocks.BEDROCK.defaultBlockState();
     BlockState stone = Blocks.STONE.defaultBlockState();
     ChunkPos chunkpos = chunk.getPos();
 
-    BlockPos.Mutable pos = new BlockPos.Mutable();
+    BlockPos.MutableBlockPos pos = new BlockPos.MutableBlockPos();
 
     int x;
     int z;
@@ -93,18 +93,18 @@ public class ModChunkGenerator extends ChunkGenerator {
   }
 
   @Override
-  public void fillFromNoise(IWorld world, StructureManager structureManager, IChunk chunk) {
+  public void fillFromNoise(LevelAccessor world, StructureFeatureManager structureManager, ChunkAccess chunk) {
 
   }
 
   @Override
-  public int getBaseHeight(int x, int z, Heightmap.Type heightmapType) {
+  public int getBaseHeight(int x, int z, Heightmap.Types heightmapType) {
     return 0;
   }
 
   @Override
-  public IBlockReader getBaseColumn(int p_230348_1_, int p_230348_2_) {
-    return new Blockreader(new BlockState[0]);
+  public BlockGetter getBaseColumn(int p_230348_1_, int p_230348_2_) {
+    return new NoiseColumn(new BlockState[0]);
   }
 
   private static class Settings {

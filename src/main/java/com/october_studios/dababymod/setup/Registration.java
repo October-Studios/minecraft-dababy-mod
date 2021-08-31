@@ -2,14 +2,14 @@ package com.october_studios.dababymod.setup;
 
 import com.october_studios.dababymod.entities.DaBabyEntity;
 import com.october_studios.dababymod.items.DaBabyMobEggItem;
-import net.minecraft.block.Block;
-import net.minecraft.entity.EntityClassification;
-import net.minecraft.entity.EntityType;
-import net.minecraft.item.Item;
-import net.minecraft.tileentity.TileEntityType;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.SoundEvent;
-import net.minecraftforge.fml.RegistryObject;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.entity.MobCategory;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraftforge.fmllegacy.RegistryObject;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -21,7 +21,7 @@ public class Registration {
       DeferredRegister.create(ForgeRegistries.BLOCKS, MODID);
   private static final DeferredRegister<Item> ITEMS =
       DeferredRegister.create(ForgeRegistries.ITEMS, MODID);
-  private static final DeferredRegister<TileEntityType<?>> TILES =
+  private static final DeferredRegister<BlockEntityType<?>> TILES =
       DeferredRegister.create(ForgeRegistries.TILE_ENTITIES, MODID);
   private static final DeferredRegister<EntityType<?>> ENTITIES =
       DeferredRegister.create(ForgeRegistries.ENTITIES, MODID);
@@ -48,7 +48,7 @@ public class Registration {
       ENTITIES.register(
           "dababy",
           () ->
-              EntityType.Builder.of(DaBabyEntity::new, EntityClassification.CREATURE)
+              EntityType.Builder.of(DaBabyEntity::new, MobCategory.CREATURE)
                   .sized(1, 1)
                   .setShouldReceiveVelocityUpdates(false)
                   .build("dababy"));

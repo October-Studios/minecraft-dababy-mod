@@ -1,14 +1,18 @@
 package com.october_studios.dababymod.entities;
 
-import net.minecraft.client.renderer.entity.model.BipedModel;
+import net.minecraft.client.model.AbstractZombieModel;
+import net.minecraft.client.model.geom.ModelPart;
+import net.minecraft.world.entity.monster.Zombie;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 
-public class DaBabyModel extends BipedModel<DaBabyEntity> {
-
-  public DaBabyModel(final float size) {
-    super(size);
+@OnlyIn(Dist.CLIENT)
+public class DaBabyModel<T extends Zombie> extends AbstractZombieModel<T> {
+  public DaBabyModel(ModelPart p_171090_) {
+    super(p_171090_);
   }
 
-  public DaBabyModel() {
-    this(0.0F);
+  public boolean isAggressive(T p_104155_) {
+    return p_104155_.isAggressive();
   }
 }

@@ -17,7 +17,6 @@ public class Config {
   public static ForgeConfigSpec.IntValue FIRSTBLOCK_GENERATE;
 
   static {
-
     ForgeConfigSpec.Builder SERVER_BUILDER = new ForgeConfigSpec.Builder();
     ForgeConfigSpec.Builder CLIENT_BUILDER = new ForgeConfigSpec.Builder();
 
@@ -30,23 +29,19 @@ public class Config {
 
     SERVER_BUILDER.pop();
 
-
     SERVER_CONFIG = SERVER_BUILDER.build();
     CLIENT_CONFIG = CLIENT_BUILDER.build();
   }
 
-  private static void setupFirstBlockConfig(ForgeConfigSpec.Builder SERVER_BUILDER, ForgeConfigSpec.Builder CLIENT_BUILDER) {
+  private static void setupFirstBlockConfig(
+      ForgeConfigSpec.Builder SERVER_BUILDER, ForgeConfigSpec.Builder CLIENT_BUILDER) {
     SERVER_BUILDER.comment("FirstBlock settings").push(SUBCATEGORY_FIRSTBLOCK);
 
-    FIRSTBLOCK_GENERATE = SERVER_BUILDER.comment("Power generation per diamond")
-        .defineInRange("generate", 1000, 0, Integer.MAX_VALUE);
+    FIRSTBLOCK_GENERATE =
+        SERVER_BUILDER
+            .comment("Power generation per diamond")
+            .defineInRange("generate", 1000, 0, Integer.MAX_VALUE);
 
     SERVER_BUILDER.pop();
   }
-
-  @SubscribeEvent
-  public static void onLoad(final ModConfig.Loading configEvent) {}
-
-  @SubscribeEvent
-  public static void onReload(final ModConfig.Reloading configEvent) {}
 }

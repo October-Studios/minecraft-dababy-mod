@@ -1,19 +1,19 @@
 package com.october_studios.dababymod.client;
 
-import com.mojang.blaze3d.matrix.MatrixStack;
-import com.mojang.blaze3d.vertex.IVertexBuilder;
+import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.entity.player.ClientPlayerEntity;
-import net.minecraft.client.renderer.IRenderTypeBuffer;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.monster.IMob;
-import net.minecraft.item.Items;
-import net.minecraft.util.math.vector.Matrix4f;
+import net.minecraft.client.player.LocalPlayer;
+import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.monster.Enemy;
+import net.minecraft.world.item.Items;
+import com.mojang.math.Matrix4f;
 import net.minecraftforge.client.event.RenderLivingEvent;
 
 public class AfterLivingRenderer {
   public static void render(RenderLivingEvent.Post event) {
-    ClientPlayerEntity player = Minecraft.getInstance().player;
+    LocalPlayer player = Minecraft.getInstance().player;
 
     assert player != null;
     if (player.getMainHandItem().getItem() == Items.GHAST_TEAR) {
@@ -22,7 +22,7 @@ public class AfterLivingRenderer {
   }
 
   private static void redLine(
-      IVertexBuilder builder,
+      VertexConsumer builder,
       Matrix4f positionMatrix,
       float dx1,
       float dy1,
@@ -36,7 +36,7 @@ public class AfterLivingRenderer {
   }
 
   private static void greenLine(
-      IVertexBuilder builder,
+      VertexConsumer builder,
       Matrix4f positionMatrix,
       float dx1,
       float dy1,
@@ -53,12 +53,12 @@ public class AfterLivingRenderer {
   }
 
   private static void showMobs(
-      MatrixStack matrixStack, IRenderTypeBuffer buffer, LivingEntity entity) {
-    IVertexBuilder builder = buffer.getBuffer(CustomRenderType.OVERLAY_LINES);
+      PoseStack matrixStack, MultiBufferSource buffer, LivingEntity entity) {
+    VertexConsumer builder = buffer.getBuffer();
 
     Matrix4f positionMatrix = matrixStack.last().pose();
 
-    if (entity instanceof IMob) {
+    if (entity instanceof Enemy) {
       redLine(builder, positionMatrix, 0, .5f, 0, 0, 6, 0);
     } else {
       greenLine(builder, positionMatrix, 0, .5f, 0, 0, 6, 0);

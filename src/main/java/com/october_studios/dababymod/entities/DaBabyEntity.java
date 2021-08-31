@@ -1,31 +1,31 @@
 package com.october_studios.dababymod.entities;
 
-import net.minecraft.entity.AgeableEntity;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.ai.attributes.AttributeModifierMap;
-import net.minecraft.entity.ai.attributes.Attributes;
-import net.minecraft.entity.passive.AnimalEntity;
-import net.minecraft.world.World;
-import net.minecraft.world.server.ServerWorld;
+import net.minecraft.world.entity.AgableMob;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
+import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.animal.Animal;
+import net.minecraft.world.level.Level;
+import net.minecraft.server.level.ServerLevel;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-public class DaBabyEntity extends AnimalEntity {
+public class DaBabyEntity extends Animal {
 
-  public DaBabyEntity(final EntityType<? extends AnimalEntity> type, final World world) {
+  public DaBabyEntity(final EntityType<? extends Animal> type, final Level world) {
     super(type, world);
   }
 
   @Nullable
   @Override
-  public AgeableEntity getBreedOffspring(
-      @Nonnull ServerWorld world, @Nonnull AgeableEntity entity) {
+  public AgableMob getBreedOffspring(
+      @Nonnull ServerLevel world, @Nonnull AgableMob entity) {
     return null;
   }
 
-  public static AttributeModifierMap.MutableAttribute prepareAttributes() {
+  public static AttributeSupplier.Builder prepareAttributes() {
     return LivingEntity.createLivingAttributes()
         .add(Attributes.ATTACK_DAMAGE, 3.0D)
         .add(Attributes.MAX_HEALTH, 20.0D)
