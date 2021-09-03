@@ -54,7 +54,7 @@ public class AfterLivingRenderer {
 
   private static void showMobs(
       PoseStack matrixStack, MultiBufferSource buffer, LivingEntity entity) {
-    VertexConsumer builder = buffer.getBuffer();
+    VertexConsumer builder = buffer.getBuffer(CustomRenderType.OVERLAY_LINES);
 
     Matrix4f positionMatrix = matrixStack.last().pose();
 

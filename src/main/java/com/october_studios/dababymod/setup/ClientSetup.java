@@ -4,16 +4,18 @@ import com.october_studios.dababymod.DababyMod;
 import com.october_studios.dababymod.client.AfterLivingRenderer;
 import com.october_studios.dababymod.client.InWorldRenderer;
 import com.october_studios.dababymod.entities.DaBabyRenderer;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.screens.MenuScreens;
+import net.minecraft.client.renderer.ItemBlockRenderTypes;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.texture.TextureAtlas;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.client.event.ColorHandlerEvent;
-import net.minecraftforge.client.event.ModelRegistryEvent;
-import net.minecraftforge.client.event.RenderTooltipEvent;
-import net.minecraftforge.client.event.TextureStitchEvent;
+import net.minecraftforge.client.event.*;
+import net.minecraftforge.client.model.ModelLoaderRegistry;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fmlclient.registry.ClientRegistry;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 
@@ -23,8 +25,6 @@ import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
     bus = Mod.EventBusSubscriber.Bus.MOD)
 public class ClientSetup {
   public static void init(final FMLClientSetupEvent event) {
-    ClientRegistry.registerEntityRenderingHandler(
-        Registration.DABABY.get(), DaBabyRenderer::new);
     MinecraftForge.EVENT_BUS.addListener(InWorldRenderer::render);
     MinecraftForge.EVENT_BUS.addListener(AfterLivingRenderer::render);
   }

@@ -22,7 +22,7 @@ public class Registration {
   private static final DeferredRegister<Item> ITEMS =
       DeferredRegister.create(ForgeRegistries.ITEMS, MODID);
   private static final DeferredRegister<BlockEntityType<?>> TILES =
-      DeferredRegister.create(ForgeRegistries.TILE_ENTITIES, MODID);
+      DeferredRegister.create(ForgeRegistries.BLOCK_ENTITIES, MODID);
   private static final DeferredRegister<EntityType<?>> ENTITIES =
       DeferredRegister.create(ForgeRegistries.ENTITIES, MODID);
   private static final DeferredRegister<SoundEvent> SOUNDS =

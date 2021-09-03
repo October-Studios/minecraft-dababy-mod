@@ -1,15 +1,14 @@
 package com.october_studios.dababymod.entities;
 
-import net.minecraft.world.entity.AgableMob;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.entity.AgeableMob;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.level.Level;
-import net.minecraft.server.level.ServerLevel;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 public class DaBabyEntity extends Animal {
@@ -20,8 +19,7 @@ public class DaBabyEntity extends Animal {
 
   @Nullable
   @Override
-  public AgableMob getBreedOffspring(
-      @Nonnull ServerLevel world, @Nonnull AgableMob entity) {
+  public AgeableMob getBreedOffspring(ServerLevel serverLevel, AgeableMob ageableMob) {
     return null;
   }
 

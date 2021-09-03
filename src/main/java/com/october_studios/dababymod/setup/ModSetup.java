@@ -4,13 +4,15 @@ import com.october_studios.dababymod.DababyMod;
 import com.october_studios.dababymod.dimension.ModBiomeProvider;
 import com.october_studios.dababymod.dimension.ModChunkGenerator;
 import com.october_studios.dababymod.entities.DaBabyEntity;
+import net.minecraft.core.Registry;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.ai.attributes.DefaultAttributes;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.core.Registry;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.event.RegisterCommandsEvent;
+import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 
@@ -25,15 +27,9 @@ public class ModSetup {
   };
 
   public static void init(final FMLCommonSetupEvent event) {
-    MinecraftForge.EVENT_BUS.addGenericListener(
-        Entity.class, ChargeEventHandler::onAttachCapabilitiesEvent);
-    MinecraftForge.EVENT_BUS.addListener(ChargeEventHandler::onAttackEvent);
-    MinecraftForge.EVENT_BUS.addListener(ChargeEventHandler::onDeathEvent);
 
     event.enqueueWork(
         () -> {
-          DefaultAttributes.put(
-              Registration.DABABY.get(), DaBabyEntity.prepareAttributes().build());
 
           Registry.register(
               Registry.CHUNK_GENERATOR,
@@ -44,5 +40,13 @@ public class ModSetup {
               new ResourceLocation(DababyMod.MODID, "biomes"),
               ModBiomeProvider.CODEC);
         });
+  }
+
+  public static void onAttributeCreate(EntityAttributeCreationEvent event) {
+    event.put(Registration.DABABY.get(), DaBabyEntity.prepareAttributes().build());
+  }
+
+  @SubscribeEvent
+  public static void serverLoad(RegisterCommandsEvent event) {
   }
 }

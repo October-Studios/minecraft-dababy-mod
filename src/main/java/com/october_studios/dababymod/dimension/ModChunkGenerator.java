@@ -3,22 +3,21 @@ package com.october_studios.dababymod.dimension;
 import com.october_studios.dababymod.DababyMod;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import net.minecraft.world.level.*;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.core.BlockPos;
-import net.minecraft.world.level.ChunkPos;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.RegistryLookupCodec;
-import net.minecraft.world.level.NoiseColumn;
-import net.minecraft.world.level.BlockGetter;
-import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.chunk.ChunkAccess;
 import net.minecraft.world.level.chunk.ChunkGenerator;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.server.level.WorldGenRegion;
-import net.minecraft.world.level.StructureFeatureManager;
 import net.minecraft.world.level.levelgen.StructureSettings;
+
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.Executor;
 
 public class ModChunkGenerator extends ChunkGenerator {
   private static final Codec<Settings> SETTINGS_CODEC = RecordCodecBuilder.create(instance ->
@@ -93,20 +92,19 @@ public class ModChunkGenerator extends ChunkGenerator {
   }
 
   @Override
-  public void fillFromNoise(LevelAccessor world, StructureFeatureManager structureManager, ChunkAccess chunk) {
-
+  public CompletableFuture<ChunkAccess> fillFromNoise(Executor executor, StructureFeatureManager structureFeatureManager, ChunkAccess chunkAccess) {
+    return CompletableFuture.completedFuture(chunkAccess);
   }
 
   @Override
-  public int getBaseHeight(int x, int z, Heightmap.Types heightmapType) {
+  public int getBaseHeight(int i, int i1, Heightmap.Types types, LevelHeightAccessor levelHeightAccessor) {
     return 0;
   }
 
   @Override
-  public BlockGetter getBaseColumn(int p_230348_1_, int p_230348_2_) {
-    return new NoiseColumn(new BlockState[0]);
+  public NoiseColumn getBaseColumn(int i, int i1, LevelHeightAccessor levelHeightAccessor) {
+    return new NoiseColumn(0, new BlockState[0]);
   }
-
   private static class Settings {
     private final int baseHeight;
     private final float verticalVariance;
