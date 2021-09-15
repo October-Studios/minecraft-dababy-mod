@@ -1,4 +1,4 @@
-package com.october_studios.dababymod.entities;
+package com.october_studios.dababymod.world.entity;
 
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
@@ -8,12 +8,12 @@ import net.minecraft.world.level.Level;
 
 public class DaBabyEntity extends Monster{
 
-  public DaBabyEntity(EntityType<? extends DaBabyEntity> dababyEntity, Level world) {
+  public DaBabyEntity(final EntityType<? extends Monster> dababyEntity, final Level world) {
     super(dababyEntity, world);
     this.xpReward = 5;
   }
 
-  public static AttributeSupplier.Builder createAttributes() {
-    return Monster.createMonsterAttributes().add(Attributes.MAX_HEALTH, 16.0D);
+  public static AttributeSupplier.Builder registerAttributes() {
+    return Monster.createMonsterAttributes();
   }
 }

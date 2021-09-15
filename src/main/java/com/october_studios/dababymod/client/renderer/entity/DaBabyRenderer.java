@@ -1,6 +1,8 @@
-package com.october_studios.dababymod.entities;
+package com.october_studios.dababymod.client.renderer.entity;
 
 import com.october_studios.dababymod.DababyMod;
+import com.october_studios.dababymod.entities.DaBabyModel;
+import com.october_studios.dababymod.world.entity.DaBabyEntity;
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.model.geom.EntityModelSet;
 import net.minecraft.client.model.geom.ModelLayerLocation;
