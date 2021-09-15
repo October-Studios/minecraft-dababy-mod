@@ -1,32 +1,22 @@
 package com.october_studios.dababymod;
 
-import com.october_studios.dababymod.setup.ClientSetup;
-import com.october_studios.dababymod.setup.Config;
-import com.october_studios.dababymod.setup.ModSetup;;
-import com.october_studios.dababymod.setup.Registration;
+import com.october_studios.dababymod.config.DaBabyModConfig;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.config.ModConfig;
-import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 // The value here should match an entry in the META-INF/mods.toml file
 @Mod(DababyMod.MODID)
+@Mod.EventBusSubscriber(modid = DababyMod.MODID, bus = Bus.MOD)
 public class DababyMod {
-
-  public static final String MODID = "dababymod";
-
   public static final Logger LOGGER = LogManager.getLogger();
 
+  public static final String MODID = "dababymod";
+  public static final String NAME = "DaBaby Mod";
+
   public DababyMod() {
-    ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, Config.CLIENT_CONFIG);
-    ModLoadingContext.get().registerConfig(ModConfig.Type.SERVER, Config.SERVER_CONFIG);
-
-    Registration.init();
-
-    // Register the setup method for modloading
-    FMLJavaModLoadingContext.get().getModEventBus().addListener(ModSetup::init);
-    FMLJavaModLoadingContext.get().getModEventBus().addListener(ClientSetup::init);
+    DaBabyModConfig.register(ModLoadingContext.get());
   }
 }

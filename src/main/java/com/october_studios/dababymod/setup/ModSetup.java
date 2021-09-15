@@ -6,10 +6,8 @@ import com.october_studios.dababymod.dimension.ModChunkGenerator;
 import com.october_studios.dababymod.entities.DaBabyEntity;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.entity.Entity;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.RegisterCommandsEvent;
 import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -43,7 +41,7 @@ public class ModSetup {
   }
 
   public static void onAttributeCreate(EntityAttributeCreationEvent event) {
-    event.put(Registration.DABABY.get(), DaBabyEntity.prepareAttributes().build());
+    event.put(Registration.DABABY.get(), DaBabyEntity.createAttributes().build());
   }
 
   @SubscribeEvent
