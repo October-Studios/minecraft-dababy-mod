@@ -1,51 +1,62 @@
 package com.october_studios.dababymod.entities;
 
-import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.blaze3d.vertex.VertexConsumer;
-import com.october_studios.dababymod.DababyMod;
-import net.minecraft.client.model.PlayerModel;
-import net.minecraft.client.model.geom.ModelLayerLocation;
+import net.minecraft.client.model.AnimationUtils;
+import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
-import net.minecraft.client.model.geom.builders.CubeDeformation;
-import net.minecraft.client.model.geom.builders.CubeListBuilder;
-import net.minecraft.client.model.geom.builders.MeshDefinition;
-import net.minecraft.client.model.geom.builders.PartDefinition;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.client.model.geom.builders.*;
+import net.minecraft.util.Mth;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.entity.HumanoidArm;
 import net.minecraft.world.entity.Mob;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
-public class DaBabyModel<T extends Mob> extends PlayerModel<T> {
-  private final PartPose bodyDefault = this.body.storePose();
-  private final PartPose headDefault = this.head.storePose();
-  private final PartPose leftArmDefault = this.leftArm.storePose();
-  private final PartPose rightArmDefault = this.rightArm.storePose();
+public class DaBabyModel<T extends Mob> extends HumanoidModel<T> {
+  public DaBabyModel(ModelPart p_170941_) {super(p_170941_);}
 
-  public DaBabyModel(ModelPart p_170810_) {
-    super(p_170810_, false);
-  }
-
-  public static MeshDefinition createMesh(CubeDeformation p_170812_) {
-    MeshDefinition meshdefinition = PlayerModel.createMesh(p_170812_, false);
+  public static LayerDefinition createBodyLayer() {
+    MeshDefinition meshdefinition = HumanoidModel.createMesh(CubeDeformation.NONE, 0.0F);
     PartDefinition partdefinition = meshdefinition.getRoot();
-    partdefinition.addOrReplaceChild("body", CubeListBuilder.create().texOffs(16, 16).addBox(-4.0F, 0.0F, -2.0F, 8.0F, 12.0F, 4.0F, p_170812_), PartPose.ZERO);
-    return meshdefinition;
+    partdefinition.addOrReplaceChild("right_arm", CubeListBuilder.create().texOffs(40, 16).addBox(-1.0F, -2.0F, -1.0F, 2.0F, 12.0F, 2.0F), PartPose.offset(-5.0F, 2.0F, 0.0F));
+    partdefinition.addOrReplaceChild("left_arm", CubeListBuilder.create().texOffs(40, 16).mirror().addBox(-1.0F, -2.0F, -1.0F, 2.0F, 12.0F, 2.0F), PartPose.offset(5.0F, 2.0F, 0.0F));
+    partdefinition.addOrReplaceChild("right_leg", CubeListBuilder.create().texOffs(0, 16).addBox(-1.0F, 0.0F, -1.0F, 2.0F, 12.0F, 2.0F), PartPose.offset(-2.0F, 12.0F, 0.0F));
+    partdefinition.addOrReplaceChild("left_leg", CubeListBuilder.create().texOffs(0, 16).mirror().addBox(-1.0F, 0.0F, -1.0F, 2.0F, 12.0F, 2.0F), PartPose.offset(2.0F, 12.0F, 0.0F));
+    return LayerDefinition.create(meshdefinition, 64, 32);
   }
 
-  public void setupAnim(T dababyEntity, float p_103367_, float p_103368_, float p_103369_, float p_103370_, float p_103371_) {
-    this.body.loadPose(this.bodyDefault);
-    this.head.loadPose(this.headDefault);
-    this.leftArm.loadPose(this.leftArmDefault);
-    this.rightArm.loadPose(this.rightArmDefault);
-    super.setupAnim(dababyEntity, p_103367_, p_103368_, p_103369_, p_103370_, p_103371_);
+  public void prepareMobModel(T p_103793_, float p_103794_, float p_103795_, float p_103796_) {
+    this.rightArmPose = HumanoidModel.ArmPose.EMPTY;
+    this.leftArmPose = HumanoidModel.ArmPose.EMPTY;
+    ItemStack itemstack = p_103793_.getItemInHand(InteractionHand.MAIN_HAND);
+    if (itemstack.is(Items.BOW) && p_103793_.isAggressive()) {
+      if (p_103793_.getMainArm() == HumanoidArm.RIGHT) {
+        this.rightArmPose = HumanoidModel.ArmPose.BOW_AND_ARROW;
+      } else {
+        this.leftArmPose = HumanoidModel.ArmPose.BOW_AND_ARROW;
+      }
+    }
+    super.prepareMobModel(p_103793_, p_103794_, p_103795_, p_103796_);
+  }
 
-    this.leftPants.copyFrom(this.leftLeg);
-    this.rightPants.copyFrom(this.rightLeg);
-    this.leftSleeve.copyFrom(this.leftArm);
-    this.rightSleeve.copyFrom(this.rightArm);
-    this.jacket.copyFrom(this.body);
-    this.hat.copyFrom(this.head);
+  public void setupAnim(T p_103798_, float p_103799_, float p_103800_, float p_103801_, float p_103802_, float p_103803_) {
+    super.setupAnim(p_103798_, p_103799_, p_103800_, p_103801_, p_103802_, p_103803_);
+    ItemStack itemstack = p_103798_.getMainHandItem();
+    if (p_103798_.isAggressive() && (itemstack.isEmpty() || !itemstack.is(Items.BOW))) {
+      float f = Mth.sin(this.attackTime * (float)Math.PI);
+      float f1 = Mth.sin((1.0F - (1.0F - this.attackTime) * (1.0F - this.attackTime)) * (float)Math.PI);
+      this.rightArm.zRot = 0.0F;
+      this.leftArm.zRot = 0.0F;
+      this.rightArm.yRot = -(0.1F - f * 0.6F);
+      this.leftArm.yRot = 0.1F - f * 0.6F;
+      this.rightArm.xRot = (-(float)Math.PI / 2F);
+      this.leftArm.xRot = (-(float)Math.PI / 2F);
+      this.rightArm.xRot -= f * 1.2F - f1 * 0.4F;
+      this.leftArm.xRot -= f * 1.2F - f1 * 0.4F;
+      AnimationUtils.bobArms(this.rightArm, this.leftArm, p_103801_);
+    }
   }
 }

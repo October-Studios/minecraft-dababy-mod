@@ -12,6 +12,6 @@ import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
 public class ModRenderers {
   @SubscribeEvent
   public static void register(final EntityRenderersEvent.RegisterRenderers event) {
-    event.registerEntityRenderer(ModEntities.DABABY_MOB.get(), context -> new DaBabyRenderer(context));
+    event.registerEntityRenderer(ModEntities.DABABY_MOB.get(), DaBabyRenderer::new);
   }
 }
