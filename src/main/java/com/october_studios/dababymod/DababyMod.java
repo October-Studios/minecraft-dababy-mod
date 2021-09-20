@@ -19,6 +19,8 @@ public class DababyMod {
   public static final String MODID = "dababymod";
   public static final String NAME = "DaBaby Mod";
 
+  public static final DaBabyModCreativeModeTab CREATIVE_MODE_TAB = new DaBabyModCreativeModeTab();
+
   public DababyMod() {
     DaBabyModConfig.register(ModLoadingContext.get());
 
