@@ -1,4 +1,4 @@
-# DaBaby Mod v0.1.0 - Minecraft 1.17
+# DaBaby Mod v0.1.0 - Minecraft 1.18.2
 
 ## Overview
 This mod adds a new mob to the game, as well as a couple of other items.
